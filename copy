@@ -60,3 +60,28 @@ function complete_bse(a)
 		dataType: 'json',
 	});
 }
+
+<td>
+									<button
+										class="btn btn-success"
+										onclick="nse_complete('{{x[6]}}')"
+									>
+										Complete NSE
+									</button>
+								</td>
+								{% else %}
+								<td>
+									<button class="btn btn-disabeld" disabled="">
+										Complete NSE
+									</button>
+								</td>
+								{% endif %} {% if (segment[4]=='BSE_Cash' or
+								segment[5]=='BSE_CD') and x[158]=='0' %}
+								<td>
+									<button
+										class="btn btn-success"
+										onclick="bse_complete('{{x[6]}}')"
+									>
+										Complete BSE
+									</button>
+								</td>
