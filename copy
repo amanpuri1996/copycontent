@@ -1,0 +1,62 @@
+function complete_nse(a)
+{
+	$('.overlay-bg').show();
+	var json_data = '';
+	$.ajax({
+		crossOrigin: true,
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8',
+		url: '/parasram/nseUCCModifykyc/' + a,
+		data: JSON.stringify(json_data),
+		success: function (data)
+		{
+			console.log(data);
+			$('.overlay-bg').hide();
+			$('#id08').css('display', 'block');
+			$('#success_msg').replaceWith(
+				'<p id="success_msg" class="text-center">' + data['msg'] + '</p>',
+			);
+		},
+		error: function (data)
+		{
+			$('.overlay-bg').hide();
+			$('#notification').css('display', 'block');
+			setInterval(function ()
+			{
+				$('#notification').css('display', 'none');
+			}, 5000);
+		},
+		dataType: 'json',
+	});
+}
+function complete_bse(a)
+{
+	$('.overlay-bg').show();
+	var json_data = '';
+	$.ajax({
+		crossOrigin: true,
+		type: 'POST',
+		contentType: 'application/json; charset=utf-8',
+		url: '/parasram/bseUCCModifykyc/' + a,
+		data: JSON.stringify(json_data),
+		success: function (data)
+		{
+			console.log(data);
+			$('.overlay-bg').hide();
+			$('#id08').css('display', 'block');
+			$('#success_msg').replaceWith(
+				'<p id="success_msg"  class="text-center">' + data['msg'] + '</p>',
+			);
+		},
+		error: function (data)
+		{
+			$('.overlay-bg').hide();
+			$('#notification').css('display', 'block');
+			setInterval(function ()
+			{
+				$('#notification').css('display', 'none');
+			}, 5000);
+		},
+		dataType: 'json',
+	});
+}
