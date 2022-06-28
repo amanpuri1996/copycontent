@@ -88,3 +88,50 @@ function complete_bse(a)
 								Rejected reason with standard drop down available - Please provide the value of reason (standard message)
 
 Emkay Reply : a). Declaration for  common email and mobile b). mismatch in proof submitted c). legitimate copy required d). mismatch of name in proofs e). name of e-sign is different  f). bank details are not matching etc. We request you further allowed with edit facility
+
+
+
+
+function kycRejectall()
+{
+  var pan = document.getElementById("panreject");
+  var client = document.getElementById("clientreject");
+  var signature = document.getElementById("signaturereject");
+  var bank = document.getElementById("bankreject");
+  var finan = document.getElementById("finanreject");
+  if (pan.checked == true || client.checked == true || signature.checked == true || bank.checked == true || finan.checked == true)
+  {
+    if (pan.checked == true && $('#pan_remark').val() == '')
+    {
+      alert('Please enter the remark for PAN Card');
+    }
+    else if (client.checked == true && $('#clientimg_remark').val() == '')
+    {
+      alert('Please enter the remark for Client Image');
+    }
+    else if (signature.checked == true && $('#sign_remark').val() == '')
+    {
+      alert('Please enter the remark for Signature');
+    }
+    else if (bank.checked == true && $('#bank_remark').val() == '')
+    {
+      alert('Please enter the remark for Bank');
+    }
+    else if (finan.checked == true && $('#finan_remark').val() == '')
+    {
+      alert('Please enter the remark for Financial');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
