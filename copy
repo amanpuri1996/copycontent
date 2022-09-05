@@ -1,137 +1,684 @@
-function complete_nse(a)
-{
-	$('.overlay-bg').show();
-	var json_data = '';
-	$.ajax({
-		crossOrigin: true,
-		type: 'POST',
-		contentType: 'application/json; charset=utf-8',
-		url: '/parasram/nseUCCModifykyc/' + a,
-		data: JSON.stringify(json_data),
-		success: function (data)
-		{
-			console.log(data);
-			$('.overlay-bg').hide();
-			$('#id08').css('display', 'block');
-			$('#success_msg').replaceWith(
-				'<p id="success_msg" class="text-center">' + data['msg'] + '</p>',
-			);
-		},
-		error: function (data)
-		{
-			$('.overlay-bg').hide();
-			$('#notification').css('display', 'block');
-			setInterval(function ()
-			{
-				$('#notification').css('display', 'none');
-			}, 5000);
-		},
-		dataType: 'json',
-	});
-}
-function complete_bse(a)
-{
-	$('.overlay-bg').show();
-	var json_data = '';
-	$.ajax({
-		crossOrigin: true,
-		type: 'POST',
-		contentType: 'application/json; charset=utf-8',
-		url: '/parasram/bseUCCModifykyc/' + a,
-		data: JSON.stringify(json_data),
-		success: function (data)
-		{
-			console.log(data);
-			$('.overlay-bg').hide();
-			$('#id08').css('display', 'block');
-			$('#success_msg').replaceWith(
-				'<p id="success_msg"  class="text-center">' + data['msg'] + '</p>',
-			);
-		},
-		error: function (data)
-		{
-			$('.overlay-bg').hide();
-			$('#notification').css('display', 'block');
-			setInterval(function ()
-			{
-				$('#notification').css('display', 'none');
-			}, 5000);
-		},
-		dataType: 'json',
-	});
-}
 
-<td>
-									<button
-										class="btn btn-success"
-										onclick="nse_complete('{{x[6]}}')"
-									>
-										Complete NSE
-									</button>
-								</td>
-								{% else %}
-								<td>
-									<button class="btn btn-disabeld" disabled="">
-										Complete NSE
-									</button>
-								</td>
-								{% endif %} {% if (segment[4]=='BSE_Cash' or
-								segment[5]=='BSE_CD') and x[158]=='0' %}
-								<td>
-									<button
-										class="btn btn-success"
-										onclick="bse_complete('{{x[6]}}')"
-									>
-										Complete BSE
-									</button>
-								</td>
-								Rejected reason with standard drop down available - Please provide the value of reason (standard message)
+<!DOCTYPE html>
+<html>
 
-Emkay Reply : a). Declaration for  common email and mobile b). mismatch in proof submitted c). legitimate copy required d). mismatch of name in proofs e). name of e-sign is different  f). bank details are not matching etc. We request you further allowed with edit facility
+<head>
+    <title> EMKAY GLOBAL FINANCIAL SERVICES LTD </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+     <link rel="shortcut icon" href="https://www.emkayglobal.com/images/logo.png">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="../static/css/ipocss/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/ipocss/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/ipocss/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/admin-css.css">
+
+</head>
+
+<body>
+
+    <div class="container mb-1 mt-3">
+        <div class="row">
+            <div class="col-md-6 w-60">
+                <img src="../static/logo.png" class="img-fluid w-10" style="cursor: pointer;"
+                    onclick="window.location.reload()" />
+            </div>
+            <div class="col-md-6" style="place-self: flex-end; text-align: -webkit-right;">
+                <select id="offers" class="form-control w-25" style=" border: 1px solid #000;">
+                    <option value="all" selected="">All</option>
+                    <option value="BB (IPO)">BB (IPO)</option>
+                    <option value="DLST">DLST</option>
+                    <option value="BUYBACK">BUYBACK</option>
+                    <option value="TAKEOVER">TAKEOVER</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    </div>
 
 
+    <div id="login_signup" style="display: none; margin-top: 5rem;">
+        <div class="limiter">
+            <div class="container-login100">
+
+                <div class="col-sm-6 col-md-6" id="yes_no" style="z-index: 9">
+                    <div class="wrap-login100 p-l-40 p-r-40 p-t-29 p-b-40 bimg">
+                        <div class="login100-form validate-form">
+                            <span class="login100-form-title p-b-13">
+                                Do you have a Demat Account with EMKAY GLOBAL ?
+                            </span>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="container-login100-form-btn m-t-20">
+                                        <button class="login100-form-btn" id="yes-btn" onclick="yes();">
+                                            Yes
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="container-login100-form-btn m-t-20">
+                                        <button class="login100-form-btn" id="no-btn" onclick="no();">
+                                            no
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6 bimg" id="estern_client" style="z-index: 2">
+                    <div class="wrap-login100 p-l-55 p-r-55 p-t-29 p-b-50">
+                        <div class="login100-form validate-form">
+                            <span class="login100-form-title p-b-33">
+                                Client Login
+                            </span>
+
+                            <div class="wrap-input100 validate-input" data-validate="Mobile Number is required">
+                                <input class="input100" type="text" name="number" placeholder="Client id" id="number"
+                                    required="" />
+                            </div>
+                            <p class="otp-msg" id="otp-msg-login"></p>
+                            <div class="container-login100-form-btn m-t-20" id="login">
+                                <button class="login100-form-btn" id="login-btn" onclick="login();">
+                                    Log in
+                                </button>
+                            </div>
+                            <!-- <a href="#" style="float: right;" onclick="forget()">Forgot Client code?</a> -->
+                            <div class="otp" id="otp" style="display: none;">
+                                <div class="wrap-input100 validate-input" data-validate="OTP is required">
+                                    <input class="input100" type="text" name="otp2" placeholder="OTP" id="otp_text"
+                                        required="" />
+                                </div>
+                                <p class="otp-msg" id="otp-msg-loginsend"></p>
+                                <!-- ssss -->
+                                <div class="container-login100-form-btn m-t-20" id="loginotp_btn">
+                                    <button class="login100-form-btn" id="login-otpbtn" onclick="verifyOTP();">
+                                        Verify OTP
+                                    </button>
+                                </div>
+                                <div class="container-login100-form-btn m-t-20" id="resend_otp">
+                                    <button class="login100-form-btn" id="resend-1" onclick="login();">
+                                        Resend OTP
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="otp" id="dpid_logindiv" style="display: none;">
+                                <div class="wrap-input100 validate-input" data-validate="cc code is required">
+                                    <p> Select your demat account</p>
+                                    <select id="dpid_select_login" class="input100 p-0">
+
+                                    </select>
+                                </div>
+                                <p class="otp-msg" id="otp-msg-logindpid"></p>
+                                <div class="container-login100-form-btn m-t-20" id="dpid_submit">
+                                    <button class="login100-form-btn" onclick="dpid_sublogin();">
+                                        Done
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6" id="nonestern_client">
+                    <div class="wrap-login100 p-l-55 p-r-55 p-t-29 p-b-50">
+                        <div class="login100-form validate-form">
+                            <span class="login100-form-title p-b-33">
+                                New Registration
+                            </span>
+
+                            <div class="wrap-input100 validate-input" data-validate="Name is required">
+                                <input class="input100" type="text" name="name" placeholder="Name" id="name_sign"
+                                    required="" />
+                            </div>
+
+                            <div class="wrap-input100 rs1 validate-input"
+                                data-validate="Valid email is required: ex@abc.xyz">
+                                <input class="input100" type="email" name="email" placeholder="Email" id="email_sign"
+                                    required="" />
+                            </div>
+
+                            <div class="wrap-input100 rs1 validate-input" data-validate="Number is required">
+                                <input class="input100" type="number" name="number" placeholder="Mobile number"
+                                    id="number_sign" required="" />
+                            </div>
+
+                            <div class="wrap-input100 rs1 validate-input" data-validate="DPID is required">
+                                <input class="input100" type="text" name="dpidd"
+                                    placeholder="Depository Participant Name" id="userdpid" required="" />
+                            </div>
+
+                            <input type="checkbox" id="cdsl" onclick="cdslcheckbox();" /><label for="cdsl">CDSL</label>
+                            <input type="checkbox" id="nsdl" onclick="nsdlcheckbox();" /><label for="nsdl">NSDL</label>
+                            <div class="wrap-input100 validate-input" data-validate="Dpid/clientid is required"
+                                id="cdsl-nsdl" style="display: none;">
+                                <input class="input100" type="text" name="dpid" id="dpid" required="" />
+                            </div>
+
+                            <div class="wrap-input100 validate-input" data-validate="Pan card is required">
+                                <input class="input100" type="text" name="pan" placeholder="Pan Card no." id="pan_sign"
+                                    required="" autocapitalize="on" />
+                            </div>
+
+                            <p class="otp-msg" id="otp-msg"></p>
+
+                            <div class="container-login100-form-btn m-t-20" id="signUp">
+                                <button class="login100-form-btn" id="signup-btn" onclick="signUp();">
+                                    Sign up
+                                </button>
+                            </div>
+
+                            <div class="otpsignup" id="otpsignup" style="display: none;">
+                                <div class="wrap-input100 validate-input" data-validate="OTP is required">
+                                    <input class="input100" type="text" name="otp1" placeholder="OTP"
+                                        id="otpsignup_text" required="" />
+                                </div>
+                                <p class="otp-msg" id="otp-msg-send"></p>
+                                <div class="container-login100-form-btn m-t-20">
+                                    <button class="login100-form-btn" id="signup-otpbtn" onclick="verifyOTPsignup();">
+                                        Verify OTP
+                                    </button>
+                                </div>
+                                <div class="container-login100-form-btn m-t-20">
+                                    <button class="login100-form-btn" id="resend-2" onclick="signUp();">
+                                        Resend OTP
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning text-left">
+                                By clicking on <strong>SignUp</strong>, you agree to our
+                                <a href="#" data-toggle="popover" data-placement="top"
+                                    data-content="Please note that by submitting the contact details, you are authorising EMKAY GLOBAL FINANCIAL SERVICES LTD. to contact you and send promotional communication even though you may be registered under National Do Not Call Registry established under the Telecom Unsolicited Commercial Communications Regulations, 2007 or registered or may register under the National Customer Preference Register established under new regulation viz the Telecom Commercial Communications Customer Preference Regulations, 2010.">T&C</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6" id="previous_client" style="display: none;z-index: 2;">
+                    <div class="wrap-login100 p-l-55 p-r-55 p-t-29 p-b-50">
+                        <div class="login100-form validate-form">
+                            <span class="login100-form-title p-b-33">
+                                Already registered?
+                            </span>
+
+                            <div class="wrap-input100 validate-input" data-validate="Mobile Number is required">
+                                <input class="input100" type="text" name="number" placeholder="Mobile Number"
+                                    id="nonnumber" required="" />
+                            </div>
+                            <p class="otp-msg" id="otp-msg-nonlogin"></p>
+                            <div class="container-login100-form-btn m-t-20" id="nonlogin">
+                                <button class="login100-form-btn" id="nonlogin-btn" onclick="nonlogin()">
+                                    Log in
+                                </button>
+                            </div>
+                            <!-- <a href="#" style="float: right;" onclick="forget()">Forgot Client code?</a> -->
+                            <div class="otp" id="nonotp" style="display: none;">
+                                <div class="wrap-input100 validate-input" data-validate="OTP is required">
+                                    <input class="input100" type="text" name="otp2" placeholder="OTP" id="nonotp_text"
+                                        required="" />
+                                </div>
+                                <p class="otp-msg" id="otp-msg-nonloginsend"></p>
+                                <!-- ssss -->
+                                <div class="container-login100-form-btn m-t-20">
+                                    <button class="login100-form-btn" id="nonlogin-otpbtn" onclick="nonverifyOTP()">
+                                        Verify OTP
+                                    </button>
+                                </div>
+                                <div class="container-login100-form-btn m-t-20">
+                                    <button class="login100-form-btn" id="resend-3" onclick="nonlogin()">
+                                        Resend OTP
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--===============================================================================================-->
+
+    <script src="/static/main.js"></script>
+
+    <input type="hidden" name="signup_value" value="" id="signup_value">
+    <input type="hidden" name="cdslornsdl" value="" id="cdslornsdl">
+
+    <div class="ipo_details" id="ipo_details">
+        <div class="container" id="webview">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="d-flex " style="padding: 1rem 0px;">
+                        <h2 style="padding: 0.5rem 0;flex: 1;font-size: 26px;"><i class="fa fa-file-text-o"
+                                aria-hidden="true"></i>IPOs / Takeovers / Buybacks / Delistings </h2>
+                        <h4 id="logout" class="text-right">
+                            <label style="font-size: 14px;">Welcome, <strong id="userid"></strong></label><br>
+                            <button onclick="logout();" class="login100-form-btn w-auto"
+                                style="width: auto">Logout</button>
+                            <a class="editInfo" onclick="editProfile();" title="Edit Profile">
+                                <i class="fa fa-pencil icon-pencil" aria-hidden="true"></i>
+                            </a>
+                        </h4>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+                <div class="col-sm-12" style="width: 100%;">
+                    <table class="table table-responsive">
+                        <thead class="thead-light">
+                            <tr>
+                                <th colspan="10">
+                                    <h4 class="text-center" style="font-weight: 500; color: #fff; ">Current Issues</h4>
+                                </th>
+                            </tr>
+                            <tr class="thead2">
+                                <th>Name</th>
+                                <th>Symbol</th>
+                                <th>Category</th>
+                                <th>Type of Issue</th>
+                                <th>Exchange</th>
+                                <th>Offer start date</th>
+                                <th>Offer end date</th>
+                                <th style="text-align: right;">Price range</th>
+                                <th style="text-align: right;">Minimum Order</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="signup_tbody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-12" id="prevous_issues">
+                    <table class="table table-responsive">
+                        <thead class="thead-light">
+                            <tr>
+                                <th colspan="11">
+                                    <h4 class="text-center" style="font-weight: 500; color: #fff; ">My Bids</h4>
+                                </th>
+                            </tr>
+                            <tr class="thead2">
+                                <th>Symbol</th>
+                                <th>BidID</th>
+                                <th>Dpid</th>
+                                <th>Application Number</th>
+                                <th>PAN</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>UPI</th>
+                                <th>Modify</th>
+                                <th>View</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="previous_tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="my-2 previousBided" style="float: right;">
+                <h5><button class="pmmod_btn" onclick="previousBided()">Modify previous bids</button></h5>
+            </div>
+        </div>
+
+        <div class="container" id="mobileview">
+            <div class="row mainipo_head">
+                <div class="col-sm-4 mb-5">
+                    <h2 class="f-18 text-center"><i class="fa fa-file-text-o" aria-hidden="true"></i> IPOs / Takeovers /
+                        Buyback /
+                        Delisting</h2>
+                </div>
+                <div class="col-sm-4">
+                    <div id="moblogout" align="right">
+                        <label class="logout_label">Welcome, <strong id="mobuserid"></strong></label><br>
+                        <h4 class="login-btn"><a href="#" onclick="logout();" style="float: right;">Logout</a></h4>
+                        <a class="editInfo" onclick="editProfile();" title="Edit Profile">
+                            <i class="fa fa-pencil icon-pencil" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr>
+                    <div class="wrapper center-block" id="mobprevous_issues">
+                        <table class="table table_res">
+                            <caption>My Bids</caption>
+                        </table>
+                        <div class="panel-group" id="mobprevious_tbody" role="tablist" aria-multiselectable="true">
+
+                        </div>
+                    </div>
+                    <div class="wrapper center-block">
+                        <table class="table table_res">
+                            <caption>Current Issues</caption>
+                        </table>
+                        <div class="panel-group" id="mobsignup_tbody" role="tablist" aria-multiselectable="true">
+
+                        </div>
+                    </div>
+                    <div class="my-2 previousBided" style="float: right;">
+                        <h5><button class="pmmod_btn" onclick="previousBided()">Modify previous bids</button></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-function kycRejectall()
-{
-  var pan = document.getElementById("panreject");
-  var client = document.getElementById("clientreject");
-  var signature = document.getElementById("signaturereject");
-  var bank = document.getElementById("bankreject");
-  var finan = document.getElementById("finanreject");
-  if (pan.checked == true || client.checked == true || signature.checked == true || bank.checked == true || finan.checked == true)
-  {
-    if (pan.checked == true && $('#pan_remark').val() == '')
-    {
-      alert('Please enter the remark for PAN Card');
-    }
-    else if (client.checked == true && $('#clientimg_remark').val() == '')
-    {
-      alert('Please enter the remark for Client Image');
-    }
-    else if (signature.checked == true && $('#sign_remark').val() == '')
-    {
-      alert('Please enter the remark for Signature');
-    }
-    else if (bank.checked == true && $('#bank_remark').val() == '')
-    {
-      alert('Please enter the remark for Bank');
-    }
-    else if (finan.checked == true && $('#finan_remark').val() == '')
-    {
-      alert('Please enter the remark for Financial');
-    }
+        <div id="id01" class="showData" align="center">
+            <div id="showData" class="animate effect8 bided-area">
+                <div class="table_striped">
+                    <div class="row">
+                        <div class="col-sm-5" style="padding-right: 2rem;">
+                            <table class="table table-striped">
+                                <div style="display: flex">
+                                    <h5 id="symbol"> </h5>
+                                    <button class="bid_disbtn exchange_symbol" id="" disabled="">NSE</button>
+                                </div>
+                                <tbody id="showbiddata">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-7 col-md-7">
+                            <div class="row">
+                                <div>
+                                    <p style="font-size: 18px; text-align: justify; color:black" ;"><strong>Enter your
+                                            UPI ID</strong></p>
+                                    <div class="vpa">
+                                        <input type="text" name="" class="text" pattern="[A-Za-z]{3}"
+                                            placeholder="UPI ID" id="vpa1" onselectstart="return false"
+                                            onpaste="return false;" oncopy="return false" oncut="return false"
+                                            ondrag="return false" ondrop="return false" autocomplete="off">
+                                        <select id="upiid" class="select_upi">
+                                            <option value="@rbl">@rbl</option>
+                                            <option value="@upi">@upi</option>
+                                            <option value="@allbank">@allbank</option>
+                                            <option value="@aubank">@aubank</option>
+                                            <option value="@axisbank">@axisbank</option>
+                                            <option value="@indus">@indus</option>
+                                            <option value="@federal">@federal</option>
+                                            <option value="@sbi">@sbi</option>
+                                            <option value="@yesbank">@yesbank</option>
+                                            <option value="@citi">@citi</option>
+                                            <option value="@citigold">@citigold</option>
+                                            <option value="@dbs">@dbs</option>
+                                            <option value="@BARODAMPAY">@BARODAMPAY</option>
+                                            <option value="@freecharge">@freecharge</option>
+                                            <option value="@okhdfcbank">@okhdfcbank</option>
+                                            <option value="@okaxis">@okaxis</option>
+                                            <option value="@oksbi">@oksbi</option>
+                                            <option value="@okicici">@okicici</option>
+                                            <option value="@hsbc">@hsbc</option>
+                                            <option value="@icici">@icici</option>
+                                            <option value="@kotak">@kotak</option>
+                                            <option value="@paytm">@paytm</option>
+                                            <option value="@ybl">@ybl</option>
+                                            <option value="@sib">@sib</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p style="font-size: 12px; text-align: justify; color:red" ;">
+                                        <strong>IMPORTANT!</strong> Please
+                                        remember to check your UPI app and accept the mandate request once you've
+                                        submitted the IPO
+                                        application.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 p-0">
+                                    <table class="table items_details">
+                                        <th colspan="8">
+                                            <p style="font-size: 18px; text-align: justify; color:black" ;">
+                                                <strong>Enter bid details</strong>
+                                            </p>
+                                        </th>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td><input type="number" name="" class="text_box" placeholder="Lots"
+                                                    id="lots1" oninput="lots(1)">
+                                            </td>
+                                            <td style="padding-left: 0px; padding-right: 0px;">X</td>
+                                            <td class="d-flex" style="padding-right: 0px; display: flex;">
+                                                <p id="mrktlot"></p>=
+                                            </td>
+                                            <td><input type="number" name="" class="text_box" placeholder="Qty"
+                                                    id="qty1" oninput="quantity(1)" disabled="true"></td>
+                                            <td class="chec_kbox"><input type="checkbox" id="test1"
+                                                    onclick="checkbox(1);">
+                                                <label for="test1">Cutoff-price</label>
+                                            </td>
+                                            <td><input type="number" name="" class="text_box" placeholder="Price"
+                                                    id="price1" oninput="Price(1)"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="8">
+                                                <p style="font-size: 12px; text-align: justify;"> Note: Select 1 lot for
+                                                    a standard retail
+                                                    category IPO application </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="declare">
+                                <input type="checkbox" id="declare-bid"><label for="declare-bid">
+                                    <p style="font-size: 12px; text-align: justify;">I hereby undertake that, I have
+                                        read the Red Herring Prospectus and I am an eligible UPI bidder as per the
+                                        applicable provisions
+                                        of the SEBI (Issue of capital and Disclosure Requirement) Regulation, 2009.</p>
+                                </label>
+                            </div>
+                            <div class="submit_btn">
+                                <button class="btn btn-primary" id="bidsubmit" onclick="bidsubmit()">Submit</button>
+                                <button class="btn btn-primary" id="modifybidsubmit"
+                                    onclick="modifybidsubmit()">Submit</button>
+                                <p>Amount to be blocked:<label id="total-bid">0</label></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span onclick="closeid01()" class="clo_se" title="Close Modal">&times;</span>
+            </div>
+        </div>
+
+        <div id="withoutapi" class="showData" align="center">
+            <div id="showData" class="animate effect8 bided-area">
+                <div class="table_striped">
+                    <div class="row">
+                        <div class="col-sm-5" style="padding-right: 2rem;">
+                            <table class="table table-striped">
+                                <div style="display: flex">
+                                    <h5 id="symbol_nonupi"> </h5>
+                                    <button class="bid_disbtn exchange_symbol" disabled="">NSE</button>
+                                </div>
+                                <tbody id="showbiddata_nonupi">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-7 col-md-7">
+                            <div class="row">
+                                <div class="col-sm-12 p-0">
+                                    <table class="table items_details">
+                                        <tr>
+                                            <td>1.</td>
+                                            <td><input type="number" name="" class="text_box" placeholder="Qty"
+                                                    id="qty2" oninput="quantity(2)"></td>
+                                            <td class="chec_kbox"><input type="checkbox" id="test2"
+                                                    onclick="checkbox(2);">
+                                                <label for="test2">Cutoff-price</label>
+                                            </td>
+                                            <td><input type="number" name="" class="text_box" placeholder="Price"
+                                                    id="price2" oninput="Price(2)"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="declare">
+                                <input type="checkbox" id="declare-bid2"><label for="declare-bid2">I hereby undertake
+                                    that, I have
+                                    read the Red Herring Prospectus and I am an eligible UPI bidder as per the
+                                    applicable provisions
+                                    of the SEBI (Issue of capital and Disclosure Requirement) Regulation, 2009.</label>
+                            </div>
+                            <div class="submit_btn">
+                                <button class="btn btn-primary" id="bidsubmit_nonupi"
+                                    onclick="bidsubmit()">Submit</button>
+                                <button class="btn btn-primary" id="modifybidsubmit_nonupi"
+                                    onclick="modifybidsubmit()">Submit</button>
+                                <p>Total Amount:<label id="total-bid2">0</label></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span onclick="closeid01()" class="clo_se" title="Close Modal">&times;</span>
+            </div>
+        </div>
 
 
+    </div>
+    <div id="id03" class="showData" align="center" style="padding-top: 17em;">
+        <div id="bidded" class="animate effect8" style="text-align-last:center;">
+            <p id="bidsuccess"></p>
+            <span onclick="closeid03()" class="clo_se" title="Close Modal">&times;</span>
+        </div>
+    </div>
+    <div id="id04" class="showData" align="center">
+        <div id="showData" class="animate effect8 edit-popup">
+            <div class="padding_editdiv">
+                <div class="login100-form validate-form">
+                    <span class="login100-form-title p-b-33">
+                        Edit Profile Information
+                    </span>
 
+                    <div class="wrap-input100 validate-input" data-validate="Name is required">
+                        <input class="input100" type="text" name="name" placeholder="Name" id="updated_name"
+                            required="">
+                    </div>
 
+                    <div class="wrap-input100 rs1 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="email" name="email" placeholder="Email" id="updated_email"
+                            required="">
+                    </div>
+                    <div class="wrap-input100 rs1 validate-input" data-validate="Number is required">
+                        <input class="input100" type="number" name="number" placeholder="Mobile Number"
+                            id="updated_number" disabled required="" />
+                    </div>
+                    <input type="checkbox" id="updated_cdsl" onclick="updatecdslcheckbox();"><label
+                        for="updated_cdsl">CDSL</label>
+                    <input type="checkbox" id="updated_ndsl" onclick="updatensdlcheckbox();"><label for="updated_ndsl"
+                        class="ml-3">NSDL</label>
+                    <div class="wrap-input100 validate-input" data-validate="Dpid/clientid is required"
+                        id="updated_cdsl-nsdl">
+                        <input class="input100" type="text" name="dpid" id="updated_dpid" required="">
+                    </div>
 
+                    <div class="wrap-input100 validate-input" data-validate="Pan card is required">
+                        <input class="input100" type="text" name="pan" placeholder="Pan Card no." id="updated_pan"
+                            required="" autocapitalize="on">
+                    </div>
 
+                    <p class="otp-msg" id="update_otp-msg"></p>
 
+                    <div class="container-login100-form-btn m-t-20" id="update">
+                        <button class="login100-form-btn" id="update-btn" onclick="updateProfile();">
+                            UPDATE
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <span onclick="closeid04()" class="clo_se" title="Close Modal">&times;</span>
+        </div>
+    </div>
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="overlay-bg">
+        <div class="loader"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="text-center"><a href="https://www.npci.org.in/what-we-do/ipo/live-partners"
+                        target="_blank"><strong>Click
+                            here</strong></a> to check the list of apps and banks which support UPI IPO currently.</p>
+                <p class="text-center">IPO bidding window is open from 10:00 AM till 05:00 PM | Only UPI Payment's are
+                    supported
+                    for IPO's</p>
+            </div>
+        </div>
+    </div>
 
+    <div id="id02" class="showData" align="center" style="padding-top: 13em;background-color: rgb(0 0 0 / 78%);">
+        <div id="view_data" class="animate effect8" style="width: 88%;background-color: white;">
+            <table class="table table-responsive">
+                <thead class="thead-light">
+                    <tr class="thead2">
+                        <th>DP Status</th>
+                        <th>Reject Reason</th>
+                        <th>Sponsor Bank Pay Status</th>
+                    </tr>
+                </thead>
+                <tbody id="viewdata"></tbody>
+            </table>
+            <span onclick="closeid02()" class="clo_se" title="Close Modal">&times;</span>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+        $('.panel-collapse').on('show.bs.collapse', function () {
+            $(this).siblings('.panel-heading').addClass('active');
+        });
 
+        $('.panel-collapse').on('hide.bs.collapse', function () {
+            $(this).siblings('.panel-heading').removeClass('active');
+        });
+    </script>
+    <script src="/static/ipo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+</body>
 
-
-
-
+</html>
